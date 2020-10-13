@@ -11,32 +11,32 @@ def compare_element_from_heapsort(first_element, second_element):
         return False
 
 
-def heapify(zoos, n, i):
-    largest = i
-    l = 2 * i
-    r = 2 * i + 1
+def heapify(zoos, zoo_length, index):
+    largest_index = index
+    child_left = 2 * index
+    child_right = 2 * index + 1
 
-    if l < n and compare_element_from_heapsort(zoos[i].visitors, zoos[l].visitors):
-        largest = l
+    if child_left < zoo_length and compare_element_from_heapsort(zoos[index].visitors, zoos[child_left].visitors):
+        largest_index = child_left
 
-    if r < n and compare_element_from_heapsort(zoos[largest].visitors, zoos[r].visitors):
-        largest = r
+    if child_right < zoo_length and compare_element_from_heapsort(zoos[largest_index].visitors, zoos[child_right].visitors):
+        largest_index = child_right
 
-    if largest != i:
-        zoos[i], zoos[largest] = zoos[largest], zoos[i]  # swap
+    if largest_index != index:
+        zoos[index], zoos[largest_index] = zoos[largest_index], zoos[index]  # swap
         counters.swap_counter_heap += 1
-        heapify(zoos, n, largest)
+        heapify(zoos, zoo_length, largest_index)
 
 
 
 def heapSort(zoos):
-    n = len(zoos)
+    zoo_length = len(zoos)
 
-    for i in range(n, -1, -1):
-        heapify(zoos, n, i)
+    for i in range(zoo_length, -1, -1):
+        heapify(zoos, zoo_length, i)
 
 
-    for i in range(n - 1, 0, -1):
+    for i in range(zoo_length - 1, 0, -1):
         zoos[i], zoos[0] = zoos[0], zoos[i]  # swap
         counters.swap_counter_heap += 1
         heapify(zoos, i, 0)
