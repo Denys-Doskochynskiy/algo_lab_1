@@ -5,4 +5,5 @@ class Zoo:
         self.how_many_animals = how_many_animals
 
     def __str__(self):
-        return  "[Name="+self.name+ "; Visitors="+ str(self.visitors) +"; How many animals="+ str(self.how_many_animals)+";]"
+        return "[Name=" + self.name + "; Visitors=" + str(self.visitors) + "; How many animals=" + str(
+            self.how_many_animals) + ";]"
