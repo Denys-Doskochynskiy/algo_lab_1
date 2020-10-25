@@ -1,9 +1,7 @@
 class Zoo:
-    def __init__(self, name='no', visitors=0, how_many_animals=0):
-        self.name = name
-        self.visitors = visitors
-        self.how_many_animals = how_many_animals
+    def __init__(self, price=0, discount=0):
+        self.price = price
+        self.discount = discount
 
     def __str__(self):
-        return "[Name=" + self.name + "; Visitors=" + str(self.visitors) + "; How many animals=" + str(
-            self.how_many_animals) + ";]"
+        return "[Price=" + str(self.price) + "; Discount=" + str(self.discount) + ";]"
