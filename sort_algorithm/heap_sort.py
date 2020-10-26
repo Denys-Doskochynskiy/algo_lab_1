@@ -13,39 +13,36 @@ def compare_element_from_heapsort(first_element, second_element):
 
 def heapify(zoos, zoo_length, index):
     largest_index = index
-    child_left = 2 * index + 1
-    child_right = 2 * index + 2
+    child_left = 2 * index + 0
+    child_right = 2 * index + 1
 
-    if child_left < zoo_length and compare_element_from_heapsort(zoos[index].price, zoos[child_left].price):
+    if child_left < zoo_length and compare_element_from_heapsort(zoos[index], zoos[child_left]):
         largest_index = child_left
 
-    if child_right < zoo_length and compare_element_from_heapsort(zoos[largest_index].price,
-                                                                  zoos[child_right].price):
+    if child_right < zoo_length and compare_element_from_heapsort(zoos[largest_index],
+                                                                  zoos[child_right]):
         largest_index = child_right
 
     if largest_index != index:
         zoos[index], zoos[largest_index] = zoos[largest_index], zoos[index]  # swap
-        counters.swap_counter_heap += 1
+
         heapify(zoos, zoo_length, largest_index)
 
 
-def heapSort(zoos,count_max_element):
+def heapSort(zoos, count_max_element):
+
     zoo_length = len(zoos)
 
     for i in range(zoo_length, -1, -1):
         heapify(zoos, zoo_length, i)
 
     for i in range(zoo_length - 1, 0, -1):
-        zoos[i], zoos[0] = zoos[0], zoos[i]
-
-        if counters.increment <= count_max_element-1:
-            print(zoos[i])
-            print(counters.increment)
+        zoos[i], zoos[0] = zoos[0], zoos[i]  # swap
+        if counters.increment <= count_max_element - 1:
+            print("Most expensive element №" + str(counters.increment + 1) + ": " + str(zoos[i]))
             counters.increment += 1
-            counters.discount +=zoos[i].price
+            counters.discount += int(zoos[i])
+        else:
 
-
-        # swap
-        counters.swap_counter_heap += 1
-
+            break
         heapify(zoos, i, 0)

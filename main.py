@@ -1,34 +1,40 @@
 from help_instrument import counters
 from sort_algorithm.heap_sort import heapSort
-
-from help_instrument.csv_reader import read_file_csv
-import time
+from help_instrument.csv_reader import read_discount
+from help_instrument.csv_reader import read_price
+from help_instrument.csv_reader import create_write_to_file
+from my_array import MyArray
 
 if __name__ == '__main__':
 
     file = input("Enter please filename:")
-    zoos = read_file_csv(file)
+    zoos = read_price(file)
+    read_discount(file)
 
+    if counters.discount_percent > 1:
+        counters.discount_percent = 0
+        if counters.discount_percent < 0:
+            counters.discount_percent = 0
     n = len(zoos)
-    count_max_element = int(n / 3)
-    print(count_max_element)
-    heap_time_start = time.time()
-    heapSort(zoos,count_max_element)
-    heap_time = time.time() - heap_time_start
-    heap_time_in_ms = heap_time * 10000
-    print("Sorted zoo using heapsort")
-    for i in range(n):
-        print(zoos[i])
-        counters.total_price += zoos[i].price
+    if n < 10000:
+        count_max_element = int(n / 3)
+        heapSort(zoos, count_max_element)
+        for i in range(n):
+            counters.total_price += int(zoos[i])
+        print(counters.total_price)
+    else:
+        count_max_element = 0
+        counters.total_price = 0
 
     print("#####################################")
 
-    print("amount of swap in heapsort")
-    print(counters.swap_counter_heap)
-    print("amount compare in heapsort")
-    print(counters.compare_counter_heap)
-    print("Time for sorting: " + str(heap_time_in_ms))
-    print("Total price discount " + str(counters.discount * 0.1))
+    price_discount = counters.discount * counters.discount_percent
+    print("Total price discount " + str(price_discount))
     print("Total price  " + str(counters.total_price))
-    print("Total price with discount " + str(counters.total_price - (counters.discount * 0.1)))
+    total_price_with_discount = round(counters.total_price - price_discount, 2)
+
+    print("Total price with discount " + str(total_price_with_discount))
+    print("#####################################")
+    create_write_to_file(total_price_with_discount)
+    print("Your file is ready!)))")
     print("#####################################")
